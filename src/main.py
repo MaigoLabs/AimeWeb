@@ -10,6 +10,12 @@ from starlette.responses import HTMLResponse
 
 from vk import press_key, release_key
 
+
+AIME_PATH = "aime.txt"      # segatools aimePath
+KEY = 0x0D                  # segatools card scan key
+PORT = 8249                 # HTTP Port
+
+
 app = FastAPI()
 
 # CORS
@@ -22,7 +28,7 @@ app.add_middleware(
 )
 
 # Configuration
-PATH = Path('aime.txt')
+PATH = Path(AIME_PATH)
 AUDIO_EFFECT = Path(__file__).parent / 'audio/mixkit-gaming-lock-2848.wav'
 
 HTML = Path(__file__).parent.parent / "web/dist/index.html"
@@ -58,9 +64,9 @@ def scan(uid: str):
     winsound.PlaySound(str(AUDIO_EFFECT), winsound.SND_FILENAME)
 
     # Simulate key press
-    press_key()
+    press_key(KEY)
     time.sleep(5)
-    release_key()
+    release_key(KEY)
 
     return {"uid": uid}
 
