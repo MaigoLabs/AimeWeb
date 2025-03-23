@@ -8,6 +8,7 @@
   let [error, loading, done, edit] = ["", false, false, false]
 
   function scan(uid: string) {
+    if (loading) return
     loading = true
     post('/scan', { uid })
         .then(() => done = true)
@@ -24,7 +25,7 @@
 
     // Card must match either \d{20} or [0-9A-Fa-f]{16}
     if (!/^\d{20}$/.test(inputCard) && !/^[0-9A-Fa-f]{16}$/.test(inputCard))
-      return error = "Invalid card ID"
+      return error = "卡号格式不对"
 
     cards.push({ id: inputCard, name: inputName })
     cards = cards
@@ -44,12 +45,12 @@
   <p>点击一个卡就可以刷了，没有卡的话请先添加卡片。如果不知道卡号的话可以去 NFC Tools 扫</p>
   <div class="error">{error}</div>
 
-  <div class="cards">
+  <div class="cards flex flex-col gap-2">
     {#each cards as card}
       <div class="flex gap-2">
         <button class="card" on:click={() => scan(card.id)}>{card.name} <span>{card.id}</span></button>
         {#if edit}
-          <button transition:slide={{axis: "x"}}>删</button>
+          <button transition:slide={{axis: "x"}} on:click={() => deleteCard(card)}>删</button>
         {/if}
       </div>
     {/each}
@@ -62,7 +63,14 @@
   <div class="controls">
     <div class="input">
       <label for="add-card">卡号</label>
-      <input id="add-card" placeholder="卡号 (e.g. 50001234123412341234)" bind:value={inputCard}>
+      <input id="add-card" placeholder="卡号 (e.g. 50001234123412341234)" bind:value={inputCard}
+             on:keydown={(e: KeyboardEvent) => {
+               // Ignore special keys
+                if (e.key.length > 1) return
+
+               // Prevent every key except 0-9 and A-F
+                if (!/^[0-9A-Fa-f]$/.test(e.key)) e.preventDefault()
+             }}>
     </div>
     <div class="input">
       <label for="add-name">名称</label>
