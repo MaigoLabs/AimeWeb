@@ -6,11 +6,12 @@ Segatools 读卡器（选卡器？）前端，用来在没有读卡器的时候�
 
 # 装
 
+需要安装 python > 10
+
 ```
 git clone https://github.com/MaigoLabs/AimeWeb
 cd AimeWeb
-python3 -m venv venv
-venv/bin/pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 # 配
@@ -26,7 +27,7 @@ PORT = 8249                 # HTTP Port
 # 跑
 
 ```
-venv/bin/python3 src/main.py
+python src/main.py
 ```
 
 # 用
