@@ -1,10 +1,12 @@
+import re
+import time
+from pathlib import Path
+
+import uvicorn
+import winsound
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pathlib import Path
-import uvicorn
-import time
-import re
-import winsound
+
 from vk import press_key, release_key
 
 app = FastAPI()

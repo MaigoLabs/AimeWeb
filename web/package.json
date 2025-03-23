@@ -10,7 +10,8 @@
     "svelte-check": "^4.1.4",
     "tailwindcss": "^4.0.15",
     "typescript": "~5.7.2",
-    "vite": "^6.2.0"
+    "vite": "^6.2.0",
+    "vite-plugin-singlefile": "^2.2.0"
   },
   "private": true,
   "scripts": {
