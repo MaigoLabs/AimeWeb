@@ -1,4 +1,5 @@
-const HOST = 'http://127.0.0.1:8249'
+// const HOST = 'http://127.0.0.1:8249'
+const HOST = window.location.origin
 
 export type Dict = Record<string, any>
 

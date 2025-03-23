@@ -6,6 +6,7 @@ import uvicorn
 import winsound
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import HTMLResponse
 
 from vk import press_key, release_key
 
@@ -23,6 +24,13 @@ app.add_middleware(
 # Configuration
 PATH = Path('aime.txt')
 AUDIO_EFFECT = Path(__file__).parent / 'audio/mixkit-gaming-lock-2848.wav'
+
+HTML = Path(__file__).parent.parent / "web/dist/index.html"
+
+
+@app.get("/", response_class=HTMLResponse)
+def read_root():
+    return HTML.read_text()
 
 
 @app.post("/scan")
