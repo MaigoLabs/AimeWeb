@@ -68,11 +68,16 @@
       }
     } catch (err) { error = `无法启动 NFC，请检查权限或设备支持: ${err}` }
   }
+
+  // If we're using http, redirect to https
+  if (location.protocol === 'http:' && location.hostname !== 'localhost')
+    location.replace(`https:${location.href.substring(location.protocol.length)}`)
 </script>
 
 <main>
   <h1>AimeWeb</h1>
-  <p>点击一个卡就可以刷了，没有卡的话请先添加卡片。如果不知道卡号的话可以去 NFC Tools 扫</p>
+  <p>点击一个卡就可以刷了，没有卡的话请先在下面添加卡片。
+    {#if !nfcAvail} 如果不知道卡号的话可以用 NFC Tools App 扫 {/if}</p>
   <div class="error">{error}</div>
 
   <div class="cards flex flex-col gap-2">
