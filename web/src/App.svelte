@@ -27,8 +27,8 @@
     if (!/^\d{20}$/.test(inputCard) && !/^[0-9A-Fa-f]{16}$/.test(inputCard))
       return error = "卡号格式不对"
 
-    cards.push({ id: inputCard, name: inputName })
-    cards = cards
+    // If already exist, remove existing
+    cards = [...cards.filter(c => c.id !== inputCard), { id: inputCard, name: inputName }]
     localStorage.setItem("cards", JSON.stringify(cards))
     inputCard = ""
     inputName = ""
@@ -37,6 +37,35 @@
   function deleteCard(card: Card) {
     cards = cards.filter(c => c !== card)
     localStorage.setItem("cards", JSON.stringify(cards))
+  }
+  
+  const nfcAvail = 'NDEFReader' in window
+  let nfcScanning = false
+
+  async function startNFCScan() {
+    if (!nfcAvail) return error = "NFC 不支持"
+
+    if (nfcScanning) return
+    nfcScanning = true
+
+    try {
+      const ndef = new NDEFReader()
+      await ndef.scan()
+
+      ndef.onreadingerror = () => { error = "读取 NFC 失败，试试别的卡" }
+      ndef.onreading = ({message, serialNumber}: NDEFReadingEvent) => {
+        console.log(serialNumber, message)
+        
+        const c = serialNumber?.toUpperCase().replaceAll(":", "")
+        if (!c) return error = "无法读取卡号"
+        
+        if (c.startsWith("012E")) inputName = "FeliCa"
+        else inputName = "NFC Card"
+        
+        // Force c to be 16-characters and starting with 012E
+        inputCard = "012E" + c.padStart(16, "0").slice(4, 16)
+      }
+    } catch (err) { error = `无法启动 NFC，请检查权限或设备支持: ${err}` }
   }
 </script>
 
@@ -77,6 +106,9 @@
       <input id="add-name" placeholder="名称 (e.g. Aime)" bind:value={inputName}>
     </div>
     <button on:click={addCard}>添加</button>
+    {#if nfcAvail}
+      <button on:click={startNFCScan}>NFC 扫描</button>
+    {/if}
   </div>
 </main>
 
