@@ -29,9 +29,9 @@ app.add_middleware(
 
 # Configuration
 PATH = Path(AIME_PATH)
-AUDIO_EFFECT = Path(__file__).parent / 'audio/mixkit-gaming-lock-2848.wav'
-
-HTML = Path(__file__).parent.parent / "web/dist/index.html"
+SRC = Path(__file__).parent
+AUDIO_EFFECT = SRC / 'audio/mixkit-gaming-lock-2848.wav'
+HTML = SRC / "../web/dist/index.html"
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -72,4 +72,5 @@ def scan(uid: str):
 
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=PORT)
+    uvicorn.run(app, host="0.0.0.0", port=PORT, 
+        ssl_keyfile=SRC / "ssl/key.pem", ssl_certfile=SRC / "ssl/cert.pem")

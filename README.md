@@ -1,8 +1,8 @@
 # AimeWeb
 
-Segatools 读卡器（选卡器？）前端，用来在没有读卡器的时候可以选择刷不同的卡的工具
+Segatools 读卡器前端，用来在没有读卡器的时候可以选择刷不同的卡的工具
 
-![](img_1.png)
+![](image.png)
 
 # 装
 
@@ -32,4 +32,6 @@ python src/main.py
 
 # 用
 
-浏览器打开 `http://{LAN ip}:8249`
+浏览器打开 `https://{LAN ip}:8249`
+
+(注意是 httpS 不是 http!!! 这是因为只有 https 才能使用 WebNFC)

@@ -68,10 +68,6 @@
       }
     } catch (err) { error = `无法启动 NFC，请检查权限或设备支持: ${err}` }
   }
-
-  // If we're using http, redirect to https
-  if (location.protocol === 'http:' && location.hostname !== 'localhost')
-    location.replace(`https:${location.href.substring(location.protocol.length)}`)
 </script>
 
 <main>
