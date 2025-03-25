@@ -2,7 +2,7 @@
 
 Segatools 读卡器前端，用来在没有读卡器的时候可以选择刷不同的卡的工具
 
-![](image.png)
+<img src="image.png" width="50%">
 
 # 装
 
