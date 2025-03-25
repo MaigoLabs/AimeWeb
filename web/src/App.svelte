@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Icon from "@iconify/svelte";
   import { post } from "./sdk";
   import { slide } from "svelte/transition";
 
@@ -107,7 +108,13 @@
     </div>
     <button on:click={addCard}>添加</button>
     {#if nfcAvail}
-      <button on:click={startNFCScan}>NFC 扫描</button>
+      <button on:click={startNFCScan}>
+        {#if nfcScanning}
+          <Icon icon="line-md:loading-twotone-loop" /> NFC 扫描中... 
+        {:else}
+          NFC 扫描
+        {/if}
+      </button>
     {/if}
   </div>
 </main>

@@ -49,6 +49,11 @@ button
   background-color: #1a1a1a
   cursor: pointer
   transition: border-color 0.25s
+  
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 0.5rem
 
 button:hover 
   border-color: #646cff
@@ -56,6 +61,9 @@ button:hover
 button:focus,
 button:focus-visible 
   outline: 4px auto -webkit-focus-ring-color
+
+svg.iconify
+  display: inline-block
 
 // Expand and shrink (breathing) animation when clicked
 //@keyframes breathing
