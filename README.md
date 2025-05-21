@@ -6,7 +6,7 @@ Segatools 读卡器前端，用来在没有读卡器的时候可以选择刷不�
 
 # 装
 
-需要安装 python > 10
+需要安装 Python > 3.10
 
 ```
 git clone https://github.com/MaigoLabs/AimeWeb
